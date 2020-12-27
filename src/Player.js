@@ -199,6 +199,7 @@ class Player extends EventEmitter {
             this.emit('searchResults', message, query, tracks, collector)
 
             collector.on('collect', ({ content }) => {
+                if(content === 'cancel') return this.emit('cancelled', message, query);
                 if (!isNaN(content) && parseInt(content) >= 1 && parseInt(content) <= tracks.length) {
                     const index = parseInt(content, 10)
                     const track = tracks[index - 1]
